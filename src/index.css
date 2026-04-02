@@ -23,6 +23,7 @@
   );
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-kids-display: 'Fredoka', var(--sans);
   --mono: ui-monospace, Consolas, monospace;
 
   font-family: var(--sans);
@@ -149,10 +150,11 @@ body {
 .page .page-title-line--kids {
   margin: 0;
   max-width: 100%;
-  font-size: clamp(1.35rem, 3.8vw, 1.9rem);
+  font-family: var(--font-kids-display);
+  font-size: clamp(1.45rem, 4.2vw, 2.1rem);
   font-weight: 700;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
   background: linear-gradient(
     100deg,
     #ff2876 0%,
@@ -218,7 +220,10 @@ html[data-chart-hidden='true'] {
 
 .bottom-pick-panel__researcher-bar {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
   padding: 0.35rem clamp(0.75rem, 3vw, 1.5rem) 0.2rem;
 }
 
@@ -243,8 +248,138 @@ html[data-chart-hidden='true'] {
   background: var(--nav-active-bg);
 }
 
+.bottom-pick-panel__chart-toggle--reset {
+  border-color: color-mix(in srgb, #c53030 35%, var(--border));
+  color: color-mix(in srgb, #c53030 75%, var(--text-muted));
+}
+
+.bottom-pick-panel__chart-toggle--reset:hover {
+  color: #b91c1c;
+  background: color-mix(in srgb, #c53030 12%, transparent);
+  border-color: color-mix(in srgb, #c53030 45%, var(--border));
+}
+
+@media (prefers-color-scheme: dark) {
+  .bottom-pick-panel__chart-toggle--reset {
+    border-color: color-mix(in srgb, #f87171 40%, var(--border));
+    color: color-mix(in srgb, #fca5a5 90%, var(--text-muted));
+  }
+
+  .bottom-pick-panel__chart-toggle--reset:hover {
+    color: #fecaca;
+    background: color-mix(in srgb, #f87171 14%, transparent);
+  }
+}
+
 .bottom-pick-panel--chart-suppressed .bottom-image-picker {
   border-top: 1px solid var(--border);
+}
+
+.reset-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.reset-confirm-dialog {
+  width: min(100%, 26rem);
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+}
+
+.reset-confirm-dialog__title {
+  margin: 0 0 0.65rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.reset-confirm-dialog__text {
+  margin: 0 0 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.reset-confirm-dialog__input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.reset-confirm-dialog__input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.reset-confirm-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.reset-confirm-dialog__btn {
+  margin: 0;
+  padding: 0.45rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.reset-confirm-dialog__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.reset-confirm-dialog__btn--cancel:hover:not(:disabled) {
+  background: var(--nav-active-bg);
+}
+
+.reset-confirm-dialog__btn--danger {
+  border-color: color-mix(in srgb, #c53030 45%, var(--border));
+  color: #b91c1c;
+  background: color-mix(in srgb, #c53030 8%, var(--surface));
+}
+
+.reset-confirm-dialog__btn--danger:hover:not(:disabled) {
+  background: color-mix(in srgb, #c53030 16%, var(--surface));
+}
+
+@media (prefers-color-scheme: dark) {
+  .reset-confirm-dialog__btn--danger {
+    color: #fca5a5;
+    border-color: color-mix(in srgb, #f87171 50%, var(--border));
+    background: color-mix(in srgb, #f87171 10%, var(--surface));
+  }
+
+  .reset-confirm-dialog__btn--danger:hover:not(:disabled) {
+    background: color-mix(in srgb, #f87171 20%, var(--surface));
+  }
 }
 
 @media (prefers-color-scheme: dark) {
